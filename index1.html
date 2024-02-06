@@ -1,0 +1,342 @@
+<!--GUI for Breast Cancer Detection Application using SVM-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Heart</title>
+  <style>
+   body
+  {
+  height: 50%;
+  background-image: url("static/image/image6.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+	}
+   h1 {text-align: center;
+   }
+   align="right";
+   }
+   .head {
+      
+      font-weight: bolder;
+	  align="right";
+   }
+   .form-group 
+   {
+      padding: 5px;
+	  align="center";
+	  margin-left: -25px;
+	  font-size: 20px;
+	  font-weight: bold;
+  
+    }
+	.btn-primary {
+	margin-left: 155px;
+	}
+	 .select {
+        width:500px;
+    }
+	.form-control
+	{
+ width: 400px !important;
+ height: 40px !important;
+}
+	
+  </style>
+  
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 style="color:white" class="head" >Patient Length Of Stay Prediction</h1>
+		<h4 style="color:white;text-align:center;font-weight: bold;">Enter The Details</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-container">
+
+          <!-- Main Input For Receiving Query to our ML -->
+          <form action="{{ url_for('predict')}}" method="post" class="form-inline">
+            <div class="row">
+              <div class="col-md-6">
+               
+              </div>
+              <div class="col-md-6">
+                <div class="container">
+                  
+                  <div class="form-group">
+                    <label style="color:white" for="Hospital_code" >Hospital_code</label>
+				    <select class="form-control" name="Hospital_code" >
+		       		<option value="0">Asian </option>
+					<option value="1">Black </option>
+					<option value="2">Hispanic </option>
+					<option value="3">Latino </option>
+					<option value="4">Middle Eastern  </option>
+					<option value="5">Others </option>
+					<option value="6">Pasifika </option>
+					<option value="7">South Asian </option>
+					<option value="8">Turkish </option>
+					<option value="9">White-European </option>
+			        </select>
+                    <!---input type="text" class="form-control" name="Hospital_code" required="required" align="right"/>-->
+                  </div>
+                  <div class="form-group">
+                    <label style="color:white" for="Hospital_type_code">Hospital_type_code</label>
+					<select class="form-control" name="Hospital_type_code" >
+		       		<option value="0">a </option>
+					<option value="1">b </option>
+					<option value="2">c </option>
+			        <option value="3">d</option>
+			        <option value="4">e</option>
+			        <option value="5">f</option>
+					<option value="6">g </option>
+					</select>
+                    <!--input type="text" class="form-control" name="Hospital_type_code" required="required" align="right"/>-->
+                  </div>
+                  <div class="form-group">
+                    <label style="color:Black" for="City_Code_Hospital">City_Code_Hospital</label>
+					<select class="form-control" name="City_Code_Hospital" >
+		       		<option value="0">1 </option>
+					<option value="1">2 </option>
+					<option value="2">3 </option>
+			        <option value="3">4</option>
+			        <option value="4">5</option>
+			        <option value="5">6</option>
+					<option value="6">7 </option>
+					<option value="7">8 </option>
+					<option value="8">9 </option>
+			        <option value="9">10</option>
+			        <option value="10">11</option>
+			        <option value="11">12</option>
+					<option value="12">13 </option>
+					</select>
+                    <!--input type="text" class="form-control" name="City_Code_Hospital" required="required" align="right" />-->
+                  </div>
+                  <div class="form-group">
+                    <label style="color:Black" for="Hospital_region_code">Hospital_region_code</label>
+					<select class="form-control" name="Hospital_region_code" >
+		       		<option value="0">X </option>
+					<option value="1">Y </option>
+					<option value="2">Z</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Hospital_region_code" required="required"align="right" />-->
+                  </div>
+				  <div class="form-group">
+                    <label style="color:Black" for="Available Extra Rooms in Hospital">Available Extra Rooms in Hospital</label>
+					<select class="form-control" name="Available Extra Rooms in Hospital" >
+		       		<option value="0">1 </option>
+					<option value="1">2 </option>
+					<option value="2">3 </option>
+			        <option value="3">4</option>
+			        <option value="4">5</option>
+			        <option value="5">6</option>
+					<option value="6">7 </option>
+					<option value="7">8 </option>
+					<option value="8">9 </option>
+			        <option value="9">10</option>
+			        <option value="10">11</option>
+			        <option value="11">12</option>
+					<option value="12">13 </option>
+			        <option value="13">14</option>
+			        <option value="14">15</option>
+			        <option value="15">16</option>
+					<option value="16">17 </option>
+					<option value="17">18 </option>
+					<option value="18">19 </option>
+			        <option value="19">20</option>
+			        <option value="20">21</option>
+			        <option value="21">22</option>
+					<option value="22">23</option>
+			        <option value="23">24</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Available Extra Rooms in Hospital" required="required"align="right" />-->
+                  </div>
+				  <div class="form-group">
+                    <label style="color:Black" for="Department">Department</label>
+					<select class="form-control" name="Department" >
+		       		<option value="0">anesthesia </option>
+					<option value="1">gynecology</option>
+					<option value="2">radiotherapy </option>
+			        <option value="3">surgery</option>
+			        <option value="4">TB & Chest disease</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Department" required="required"align="right" />-->
+                  </div>
+				  <div class="form-group">
+                    <label style="color:Black" for="Ward_Type">Ward_Type</label>
+					<select class="form-control" name="Ward_Type" >
+		       		<option value="0">P </option>
+					<option value="1">Q </option>
+					<option value="2">R </option>
+			        <option value="3">S</option>
+			        <option value="4">T</option>
+			        <option value="5">U</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Ward_Type" required="required"align="right" />-->
+                  </div>
+				  <div class="form-group">
+                    <label style="color:Black" for="Ward_Facility_Code">Ward_Facility_Code</label>
+					<select class="form-control" name="Ward_Facility_Code" >
+		       		<option value="0">a </option>
+					<option value="1">b </option>
+					<option value="2">c </option>
+			        <option value="3">d</option>
+			        <option value="4">e</option>
+			        <option value="5">f</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Ward_Facility_Code" required="required"align="right" />-->
+                  </div>
+				  <div class="form-group">
+                    <label style="color:Black" for="Bed Grade">Bed Grade</label>
+					<select class="form-control" name="Bed Grade" >
+		       		<option value="0">1 </option>
+					<option value="1">2 </option>
+					<option value="2">3 </option>
+			        <option value="3">4</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Bed Grade" required="required"align="right" />-->
+                  </div>
+				  <div class="form-group">
+                    <label style="color:Black" for="City_Code_Patient">City_Code_Patient</label>
+					<select class="form-control" name="City_Code_Patient" >
+		       		<option value="0">1 </option>
+					<option value="1">2 </option>
+					<option value="2">3 </option>
+			        <option value="3">4</option>
+			        <option value="4">5</option>
+			        <option value="5">6</option>
+					<option value="6">7 </option>
+					<option value="7">8 </option>
+					<option value="8">9 </option>
+			        <option value="9">10</option>
+			        <option value="10">11</option>
+			        <option value="11">12</option>
+					<option value="12">13 </option>
+			        <option value="13">14</option>
+			        <option value="14">15</option>
+			        <option value="15">16</option>
+					<option value="16">17 </option>
+					<option value="17">18 </option>
+					<option value="18">19 </option>
+			        <option value="19">20</option>
+			        <option value="20">21</option>
+			        <option value="21">22</option>
+					<option value="22">23 </option>
+			        <option value="23">24</option>
+			        <option value="24">25</option>
+			        <option value="25">26</option>
+					<option value="26">27 </option>
+					<option value="27">28 </option>
+					<option value="28">29 </option>
+			        <option value="29">30</option>
+			        <option value="30">31</option>
+			        <option value="31">32</option>
+					<option value="32">33</option>
+			        <option value="33">34</option>
+					<option value="34">35 </option>
+					<option value="35">36</option>
+					<option value="36">37 </option>
+			        <option value="37">38</option>
+			      
+					</select>
+                    <!--input type="text" class="form-control" name="City_Code_Patient" required="required"align="right" />-->
+                  </div>
+				  
+                  <div class="form-group">
+                    <label style="color:Black" for="Type of Admission">Type of Admission</label>
+					<select class="form-control" name="Type of Admission" >
+		       		<option value="0">Emergency </option>
+					<option value="1">Trauma </option>
+					<option value="2">Urgent</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Type of Admission" required="required"  />-->
+                  </div>
+				   <div class="form-group">
+                    <label style="color:Black" for="Severity of Illness">Severity of Illness</label>
+					<select class="form-control" name="Severity of Illness" >
+		       		<option value="0">Extreme </option>
+					<option value="1">Minor </option>
+					<option value="2">Moderate</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Severity of Illness" required="required"  />-->
+                  </div>
+				   <div class="form-group">
+                    <label style="color:white" for="Visitors with Patient">Visitors with Patient</label>
+					<select class="form-control" name="Visitors with Patient" >
+		       		<option value="0">1 </option>
+					<option value="1">2 </option>
+					<option value="2">3 </option>
+			        <option value="3">4</option>
+			        <option value="4">5</option>
+			        <option value="5">6</option>
+					<option value="6">7 </option>
+					<option value="7">8 </option>
+					<option value="8">9 </option>
+			        <option value="9">10</option>
+			        <option value="10">11</option>
+			        <option value="11">12</option>
+					<option value="12">13 </option>
+			        <option value="13">14</option>
+			        <option value="14">15</option>
+			        <option value="15">16</option>
+					<option value="16">17 </option>
+					<option value="17">18 </option>
+					<option value="18">19 </option>
+			        <option value="19">20</option>
+			        <option value="20">21</option>
+			        <option value="21">22</option>
+					<option value="22">23 </option>
+			        <option value="23">24</option>
+			        <option value="24">25</option>
+			        <option value="25">26</option>
+					<option value="26">27 </option>
+					<option value="27">28 </option>
+					<option value="28">29 </option>
+			        <option value="29">30</option>
+			        <option value="30">31</option>
+			        <option value="31">32</option>
+					</select>
+                    <!--input type="text" class="form-control" name="Visitors with Patient" required="required"  />-->
+                  </div>
+				  <div class="form-group">
+                    <label style="color:White" for="Age">Age</label>
+					<select class="form-control" name="Age" >
+		       		<option value="1">0-10</option>
+					<option value="0">11-20 </option>
+					<option value="2">21-30 </option>
+					<option value="3">31-40 </option>
+			        <option value="4">41-50</option>
+			        <option value="5">51-60</option>
+			        <option value="6">61-70</option>
+					<option value="7">71-80 </option>
+					<option value="8">81-90 </option>
+					<option value="9">91-100 </option>
+			       
+					</select>
+                    <!--input type="text" class="form-control" name="Age" required="required"  />-->
+                  </div>
+
+                 <br>
+                  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
+		  <br>
+        <center>
+          <h2 style="background:#AFEEEE">{{prediction_text}}</h2>
+        </center>
+        <br />
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

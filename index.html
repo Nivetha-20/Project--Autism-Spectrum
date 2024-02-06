@@ -1,0 +1,264 @@
+<!--GUI for Breast Cancer Detection Application using SVM-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Autism Spectrum</title>
+  <style>
+    /*just bg and body style*/
+    body {
+      margin: 40px;
+      background-color: #808080;
+      background-image: linear-gradient(315deg, #de5499 19%, #a0c5ba 85%);
+    }
+
+    .container {
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .btn-container {
+      background: white;
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    .head {
+      font-weight: bolder;
+    }
+
+    .btn-primary {
+      border-color: #ff33f !important;
+      color: #ffffff;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+      background-color: #de5499 !important;
+      border-color: #de5499 !important;
+      padding: 5px;
+    }
+
+    label {
+      width: 50%;
+    }
+
+    #predict {
+      display: none;
+    }
+
+    .form-group {
+      padding: 2px;
+    }
+  </style>
+  <!--Font Awesome-->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="head">Autism Spectrum</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-container">
+
+          <!-- Main Input For Receiving Query to our ML -->
+          <form action="{{ url_for('predict')}}" method="post" class="form-inline">
+            <div class="row">
+              <div class="col-md-6">
+                <img class="image" src="{{url_for('static', filename='brain.jpg')}}" width="100%" height="100%" />
+              </div>
+              <div class="col-md-6">
+                <div class="container">
+                  <h4>Enter  Details</h4>
+                  <div class="form-group">
+                    <label for="age">Age </label>
+                    <input type="text" class="form-group" name="age" required="required">
+					</select>
+                  </div>
+				  <br>
+				  
+                  <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select class="form-group" name="gender" >
+		       		<option value="0">Female </option>
+					<option value="1">Male </option>
+					</select>
+                  </div>
+				  <br>
+				  
+                  <div class="form-group">
+                    <label for="ethinticity">Ethinticity</label>
+                    <select class="form-group" name="ethinticity" >
+		       		<option value="0">Asian </option>
+					<option value="1">Black </option>
+					<option value="2">Hispanic </option>
+					<option value="3">Latino </option>
+					<option value="4">Middle Eastern  </option>
+					<option value="5">Others </option>
+					<option value="6">Pasifika </option>
+					<option value="7">South Asian </option>
+					<option value="8">Turkish </option>
+					<option value="9">White-European </option>
+					</select>
+                  </div>
+				  <br>
+				  
+                  <div class="form-group">
+                    <label for="jundice">Jundice</label>
+                    <select class="form-group" name="jundice" >
+		       		<option value="0">NO </option>
+					<option value="1">YES</option>
+					</select>
+                  </div>
+				  <br>
+				  
+                  <div class="form-group">
+                    <label for="autism">Autism</label>
+                    <select class="form-group" name="autism" >
+		       		<option value="0">NO </option>
+					<option value="1">YES</option>
+					</select>
+                  </div>
+				  <br>
+				  
+                  <div class="form-group">
+                    <label for="country">Contry_of_res</label>
+                    <select class="form-group" name="country" >
+		       		<option value="0">Afghanistan</option>
+					<option value="1">AmericanSamoa</option>
+					<option value="2">Angola</option>
+			        <option value="3">Argentina</option>
+			        <option value="4">Armenia</option>
+			        <option value="5">Aruba</option>
+					<option value="6">Australia </option>
+					<option value="7">Austria </option>
+					<option value="8">Azerbaijan </option>
+			        <option value="9">Bahamas</option>
+			        <option value="10">Bangladesh</option>
+			        <option value="11">Belgium</option>
+					<option value="12">Bolivia </option>
+			        <option value="13">Brazil</option>
+			        <option value="14">Burundi</option>
+			        <option value="15">Canada</option>
+					<option value="16">Chile </option>
+					<option value="17">China</option>
+					<option value="18">Costa Rica </option>
+			        <option value="19">Cyprus</option>
+			        <option value="20">Czech Republic</option>
+			        <option value="21">Ecuador</option>
+					<option value="22">Egypt </option>
+			        <option value="23">Ethiopia</option>
+			        <option value="24">Finland</option>
+			        <option value="25">France</option>
+					<option value="26">Germany </option>
+					<option value="27">Hong Kong </option>
+					<option value="28">Iceland </option>
+			        <option value="29">India</option>
+			        <option value="30">Indonesia</option>
+			        <option value="31">Iran</option>
+					<option value="32">Ireland</option>
+			        <option value="33">Italy</option>
+					<option value="34">Japan </option>
+					<option value="35">Jordan</option>
+					<option value="36">Kazakhstan </option>
+			        <option value="37">Lebanon</option>
+					<option value="39">Malasiya </option>
+			        <option value="40">Mexico</option>
+					<option value="41">Nepal</option>
+					<option value="42">Netharlans</option>
+					<option value="43">New Zealands</option>
+			        <option value="44">Nicaragua</option>
+			        <option value="45">Niger</option>
+			        <option value="46">Oman</option>
+					<option value="47">Pakistan</option>
+					<option value="46">Philippines</option>
+					<option value="49">Portugal</option>
+			        <option value="50">Romania</option>
+			        <option value="51">Russia</option>
+			        <option value="52">Saudi Arabia</option>
+					<option value="53">Serbia</option>
+			        <option value="54">Sierra Leone</option>
+			        <option value="55">South Africa</option>
+			        <option value="56">Spain</option>
+					<option value="57">Sri Lanka </option>
+					<option value="58">Sweden</option>
+					<option value="59">Tonga </option>
+			        <option value="60">Turkey</option>
+					<option value="61">Ukrane</option>
+					<option value="62">United Arab Emirates</option>
+			        <option value="63">United Kingdom</option>
+			        <option value="64">United States</option>
+			        <option value="65">Uruguay</option>
+					<option value="66">Vietnam </option>
+					</select>
+			      
+                  </div>
+				  <br>
+				  
+                  <div class="form-group">
+                    <label for="app">Used_App_Before</label>
+                    <select class="form-group" name="app" >
+		       		<option value="0">NO </option>
+					<option value="1">YES</option>
+					</select>
+                  </div>
+				  <br>
+				  
+                  <div class="form-group">
+                    <label for="result">Result</label>
+                    <select class="form-group" name="result" >
+		       		<option value="0">1 </option>
+					<option value="1">2 </option>
+					<option value="2">3 </option>
+			        <option value="3">4</option>
+			        <option value="4">5</option>
+			        <option value="5">6</option>
+					<option value="6">7 </option>
+					<option value="7">8 </option>
+					<option value="8">9 </option>
+			        <option value="9">10</option>
+					</select>
+                  </div>
+				  <br>
+				  
+				  <div class="form-group">
+                    <label for="normal_nucleoli">Relation</label>
+                    <select class="form-group" name="City_Code_Patient" >
+		       		<option value="0">Health care professional</option>
+					<option value="1">Others</option>
+					<option value="2">Parent</option>
+			        <option value="3">Relative</option>
+			        <option value="4">Self</option>
+					</select>
+			        
+                  </div>
+			     
+				  <br>
+				  
+                 
+                  <button type="submit" class="btn btn-primary btn-lg">Predict Class</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        <br />
+        <center>
+          <h1 style="background:#de5499">{{prediction_text}}</h1>
+        </center>
+        <br />
+</body>
+
+</html>
